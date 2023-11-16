@@ -6,7 +6,7 @@ namespace CS7GUIs
     {
         public LogForm()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void LogForm_FormClosing(object sender, FormClosingEventArgs e)

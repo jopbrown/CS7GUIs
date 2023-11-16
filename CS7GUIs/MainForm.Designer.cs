@@ -31,6 +31,7 @@ namespace CS7GUIs
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.UITabCtrl = new TabControl();
             this.UITabPgCounter = new TabPage();
             this.panel1 = new Panel();
@@ -48,9 +49,18 @@ namespace CS7GUIs
             this.UIInputStartDate = new TextBox();
             this.UIInputReturnDate = new TextBox();
             this.UIBtnBook = new Button();
+            this.UITabPgTimer = new TabPage();
+            this.UIPanelTimer = new TableLayoutPanel();
+            this.label3 = new Label();
+            this.UILblElapsed = new Label();
+            this.label5 = new Label();
+            this.UIBtnResetTimer = new Button();
+            this.UIProgessElapsed = new ProgressBar();
+            this.UITrackDuration = new TrackBar();
             this.UIStatusBar = new StatusStrip();
             this.UIStatusLbl = new ToolStripStatusLabel();
             this.UIBtnShowLog = new ToolStripSplitButton();
+            this.UITimeTicker = new Timer(this.components);
             this.UITabCtrl.SuspendLayout();
             this.UITabPgCounter.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -58,6 +68,9 @@ namespace CS7GUIs
             this.tableLayoutPanel1.SuspendLayout();
             this.UITabPgBook.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            this.UITabPgTimer.SuspendLayout();
+            this.UIPanelTimer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)this.UITrackDuration).BeginInit();
             this.UIStatusBar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,6 +79,7 @@ namespace CS7GUIs
             this.UITabCtrl.Controls.Add(this.UITabPgCounter);
             this.UITabCtrl.Controls.Add(this.UITabPgTemp);
             this.UITabCtrl.Controls.Add(this.UITabPgBook);
+            this.UITabCtrl.Controls.Add(this.UITabPgTimer);
             this.UITabCtrl.Dock = DockStyle.Fill;
             this.UITabCtrl.Location = new Point(0, 0);
             this.UITabCtrl.Name = "UITabCtrl";
@@ -244,6 +258,100 @@ namespace CS7GUIs
             this.UIBtnBook.UseVisualStyleBackColor = true;
             this.UIBtnBook.Click += this.UIBtnBook_Click;
             // 
+            // UITabPgTimer
+            // 
+            this.UITabPgTimer.Controls.Add(this.UIPanelTimer);
+            this.UITabPgTimer.Location = new Point(4, 28);
+            this.UITabPgTimer.Name = "UITabPgTimer";
+            this.UITabPgTimer.Padding = new Padding(3);
+            this.UITabPgTimer.Size = new Size(474, 421);
+            this.UITabPgTimer.TabIndex = 4;
+            this.UITabPgTimer.Text = "Timer";
+            this.UITabPgTimer.UseVisualStyleBackColor = true;
+            // 
+            // UIPanelTimer
+            // 
+            this.UIPanelTimer.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            this.UIPanelTimer.ColumnCount = 2;
+            this.UIPanelTimer.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 113F));
+            this.UIPanelTimer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            this.UIPanelTimer.Controls.Add(this.label3, 0, 0);
+            this.UIPanelTimer.Controls.Add(this.UILblElapsed, 0, 1);
+            this.UIPanelTimer.Controls.Add(this.label5, 0, 2);
+            this.UIPanelTimer.Controls.Add(this.UIBtnResetTimer, 0, 3);
+            this.UIPanelTimer.Controls.Add(this.UIProgessElapsed, 1, 0);
+            this.UIPanelTimer.Controls.Add(this.UITrackDuration, 1, 2);
+            this.UIPanelTimer.Location = new Point(8, 102);
+            this.UIPanelTimer.Name = "UIPanelTimer";
+            this.UIPanelTimer.RowCount = 4;
+            this.UIPanelTimer.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            this.UIPanelTimer.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            this.UIPanelTimer.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            this.UIPanelTimer.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            this.UIPanelTimer.Size = new Size(460, 152);
+            this.UIPanelTimer.TabIndex = 0;
+            this.UIPanelTimer.VisibleChanged += this.UIPanelTimer_VisibleChanged;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new Point(3, 10);
+            this.label3.Margin = new Padding(3, 10, 3, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new Size(104, 19);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Elapsed Time:";
+            // 
+            // UILblElapsed
+            // 
+            this.UILblElapsed.AutoSize = true;
+            this.UIPanelTimer.SetColumnSpan(this.UILblElapsed, 2);
+            this.UILblElapsed.Location = new Point(3, 48);
+            this.UILblElapsed.Margin = new Padding(3, 10, 3, 0);
+            this.UILblElapsed.Name = "UILblElapsed";
+            this.UILblElapsed.Size = new Size(37, 19);
+            this.UILblElapsed.TabIndex = 1;
+            this.UILblElapsed.Text = "0.0s";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new Point(3, 86);
+            this.label5.Margin = new Padding(3, 10, 3, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new Size(73, 19);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Duration:";
+            // 
+            // UIBtnResetTimer
+            // 
+            this.UIPanelTimer.SetColumnSpan(this.UIBtnResetTimer, 2);
+            this.UIBtnResetTimer.Dock = DockStyle.Fill;
+            this.UIBtnResetTimer.Location = new Point(3, 117);
+            this.UIBtnResetTimer.Name = "UIBtnResetTimer";
+            this.UIBtnResetTimer.Size = new Size(454, 32);
+            this.UIBtnResetTimer.TabIndex = 3;
+            this.UIBtnResetTimer.Text = "Reset";
+            this.UIBtnResetTimer.UseVisualStyleBackColor = true;
+            this.UIBtnResetTimer.Click += this.UIBtnResetTimer_Click;
+            // 
+            // UIProgessElapsed
+            // 
+            this.UIProgessElapsed.Dock = DockStyle.Fill;
+            this.UIProgessElapsed.Location = new Point(116, 3);
+            this.UIProgessElapsed.Name = "UIProgessElapsed";
+            this.UIProgessElapsed.Size = new Size(341, 32);
+            this.UIProgessElapsed.TabIndex = 4;
+            // 
+            // UITrackDuration
+            // 
+            this.UITrackDuration.Dock = DockStyle.Fill;
+            this.UITrackDuration.Location = new Point(116, 79);
+            this.UITrackDuration.Name = "UITrackDuration";
+            this.UITrackDuration.Size = new Size(341, 32);
+            this.UITrackDuration.TabIndex = 5;
+            this.UITrackDuration.Scroll += this.UITrackDuration_Scroll;
+            // 
             // UIStatusBar
             // 
             this.UIStatusBar.ImageScalingSize = new Size(20, 20);
@@ -273,6 +381,10 @@ namespace CS7GUIs
             this.UIBtnShowLog.ToolTipText = "Show Log";
             this.UIBtnShowLog.ButtonClick += this.UIBtnShowLog_ButtonClick;
             // 
+            // UITimeTicker
+            // 
+            this.UITimeTicker.Tick += this.UITimeTicker_Tick;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new SizeF(9F, 19F);
@@ -293,6 +405,10 @@ namespace CS7GUIs
             this.UITabPgBook.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
+            this.UITabPgTimer.ResumeLayout(false);
+            this.UIPanelTimer.ResumeLayout(false);
+            this.UIPanelTimer.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)this.UITrackDuration).EndInit();
             this.UIStatusBar.ResumeLayout(false);
             this.UIStatusBar.PerformLayout();
             this.ResumeLayout(false);
@@ -320,5 +436,14 @@ namespace CS7GUIs
         private TextBox UIInputStartDate;
         private TextBox UIInputReturnDate;
         private Button UIBtnBook;
+        private TabPage UITabPgTimer;
+        private TableLayoutPanel UIPanelTimer;
+        private Label label3;
+        private Label UILblElapsed;
+        private Label label5;
+        private Button UIBtnResetTimer;
+        private ProgressBar UIProgessElapsed;
+        private TrackBar UITrackDuration;
+        private Timer UITimeTicker;
     }
 }
