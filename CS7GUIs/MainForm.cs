@@ -6,9 +6,8 @@ namespace CS7GUIs
 {
     public partial class MainForm : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-
-        
+        // NOTE: static modifier is necessary for RichTextBox target
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public MainForm()
         {
@@ -21,7 +20,7 @@ namespace CS7GUIs
 
         private void UIBtnShowLog_ButtonClick(object sender, EventArgs e)
         {
-            this.UITabCtrl.SelectedTab = this.UITabPgLog;
+            UITabCtrl.SelectedTab = this.UITabPgLog;
         }
 
         #region Counter
