@@ -8,7 +8,7 @@ namespace CS7GUIs
 {
     public partial class MainForm : Form
     {
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
         private readonly LogForm logForm;
 
@@ -27,6 +27,7 @@ namespace CS7GUIs
         {
             this.setupBook();
             this.setupTimer();
+            this.setupCRUD();
         }
 
 
@@ -42,7 +43,7 @@ namespace CS7GUIs
         {
             this.conter++;
             this.UITextCounter.Text = this.conter.ToString();
-            logger.Info($"Conter: {this.conter}");
+            log.Info($"Conter: {this.conter}");
         }
 
         #endregion
@@ -67,7 +68,7 @@ namespace CS7GUIs
             double fVal = (cVal * (9.0 / 5.0)) + 32.0;
 
             // log to make sure no circular calling
-            logger.Info($"conv {cVal:0.00}C to {fVal:0.00}F");
+            log.Info($"conv {cVal:0.00}C to {fVal:0.00}F");
 
             this.allowTriggerTextChange = false;
             this.UIInputF.Text = fVal.ToString("0.00");
@@ -90,7 +91,7 @@ namespace CS7GUIs
             double cVal = (fVal - 32.0) * (5.0 / 9.0);
 
             // log to make sure no circular calling
-            logger.Info($"conv {fVal:0.00}F to {cVal:0.00}C");
+            log.Info($"conv {fVal:0.00}F to {cVal:0.00}C");
 
             this.allowTriggerTextChange = false;
             this.UIInputC.Text = cVal.ToString("0.00");
@@ -145,13 +146,18 @@ namespace CS7GUIs
         private void UIBtnBook_Click(object sender, EventArgs e)
         {
             BookOption selected = (BookOption)this.UIOptionBook.SelectedIndex;
+            string msg;
             switch (selected)
             {
                 case BookOption.OneWay:
-                    _ = MessageBox.Show($"You have booked a one-way flight on {this.UIInputStartDate.Text}", "Book successful");
+                    msg = $"You have booked a one-way flight on {this.UIInputStartDate.Text}";
+                    log.Info(msg);
+                    _ = MessageBox.Show(msg, "Book successful");
                     break;
                 case BookOption.Return:
-                    _ = MessageBox.Show($"You have booked a return flight on {this.UIInputStartDate.Text} and {this.UIInputReturnDate.Text}.", "Book successful");
+                    msg = $"You have booked a return flight on {this.UIInputStartDate.Text} and {this.UIInputReturnDate.Text}.";
+                    log.Info(msg);
+                    _ = MessageBox.Show(msg, "Book successful");
                     break;
             }
         }
@@ -236,9 +242,124 @@ namespace CS7GUIs
 
         private void UIBtnResetTimer_Click(object sender, EventArgs e)
         {
+            log.Info("reset timer");
             this.timerStartTime = DateTime.Now;
         }
         #endregion
+
+        #region CRUD
+
+        private class User
+        {
+            public string Name { get; set; } = string.Empty;
+            public string SurName { get; set; } = string.Empty;
+
+            public string FullName => $"{this.Name}, {this.SurName}";
+        }
+
+        private readonly List<User> allUsers = new();
+        private List<User> displayUsers
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.UIInputFilter.Text))
+                {
+                    return this.allUsers;
+                }
+
+                return this.allUsers.FindAll((user) =>
+                {
+                    return user.SurName.StartsWith(this.UIInputFilter.Text);
+                }); ;
+            }
+        }
+
+        private void setupCRUD()
+        {
+            this.allUsers.Add(new User() { Name = "Emil", SurName = "Hans" });
+            this.allUsers.Add(new User() { Name = "Mustermann", SurName = "Max" });
+            this.allUsers.Add(new User() { Name = "Tisch", SurName = "Roman" });
+
+            this.updateListBox();
+            this.UIListBox.SelectedIndex = 0;
+        }
+
+        private void updateListBox()
+        {
+            this.UIListBox.DataSource = null;
+            this.UIListBox.DataSource = this.displayUsers;
+            this.UIListBox.DisplayMember = "FullName";
+        }
+
+        private void UIInputFilter_TextChanged(object sender, EventArgs e)
+        {
+            this.updateListBox();
+        }
+
+        private void UIListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.UIListBox.SelectedItems.Count == 0)
+            {
+                this.UIBtnUpdate.Enabled = false;
+                this.UIBtnDelete.Enabled = false;
+                return;
+            }
+
+            var user = (User)this.UIListBox.SelectedItems[0];
+            this.UIUnputName.Text = user?.Name;
+            this.UIInputSurName.Text = user?.SurName;
+
+            this.UIBtnUpdate.Enabled = true;
+            this.UIBtnDelete.Enabled = true;
+        }
+
+        private void UIBtnCreate_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.UIUnputName.Text) || string.IsNullOrEmpty(this.UIInputSurName.Text))
+            {
+                return;
+            }
+            var user = new User() { Name = this.UIUnputName.Text, SurName = this.UIInputSurName.Text };
+            this.allUsers.Add(user);
+
+            log.Info($"create {user.FullName}");
+
+            this.updateListBox();
+        }
+
+        private void UIBtnUpdate_Click(object sender, EventArgs e)
+        {
+            if (this.UIListBox.SelectedItems.Count == 0)
+            {
+                return;
+            }
+
+            var user = (User)this.UIListBox.SelectedItems[0];
+            user.Name = this.UIUnputName.Text;
+            user.SurName = this.UIInputSurName.Text;
+
+            log.Info($"update {user.FullName}");
+
+            this.updateListBox();
+        }
+
+        private void UIBtnDelete_Click(object sender, EventArgs e)
+        {
+            if (this.UIListBox.SelectedItems.Count == 0)
+            {
+                return;
+            }
+
+            var user = (User)this.UIListBox.SelectedItems[0];
+            this.allUsers.Remove(user);
+
+            log.Info($"delete {user.FullName}");
+
+            this.updateListBox();
+        }
+
+        #endregion
+
 
     }
 }

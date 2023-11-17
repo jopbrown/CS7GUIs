@@ -57,6 +57,18 @@ namespace CS7GUIs
             this.UIBtnResetTimer = new Button();
             this.UIProgessElapsed = new ProgressBar();
             this.UITrackDuration = new TrackBar();
+            this.UITabCRUD = new TabPage();
+            this.tableLayoutPanel2 = new TableLayoutPanel();
+            this.label4 = new Label();
+            this.UIInputFilter = new TextBox();
+            this.label6 = new Label();
+            this.label7 = new Label();
+            this.UIUnputName = new TextBox();
+            this.UIInputSurName = new TextBox();
+            this.UIBtnCreate = new Button();
+            this.UIBtnUpdate = new Button();
+            this.UIBtnDelete = new Button();
+            this.UIListBox = new ListBox();
             this.UIStatusBar = new StatusStrip();
             this.UIStatusLbl = new ToolStripStatusLabel();
             this.UIBtnShowLog = new ToolStripSplitButton();
@@ -71,6 +83,8 @@ namespace CS7GUIs
             this.UITabPgTimer.SuspendLayout();
             this.UIPanelTimer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)this.UITrackDuration).BeginInit();
+            this.UITabCRUD.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.UIStatusBar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,6 +94,7 @@ namespace CS7GUIs
             this.UITabCtrl.Controls.Add(this.UITabPgTemp);
             this.UITabCtrl.Controls.Add(this.UITabPgBook);
             this.UITabCtrl.Controls.Add(this.UITabPgTimer);
+            this.UITabCtrl.Controls.Add(this.UITabCRUD);
             this.UITabCtrl.Dock = DockStyle.Fill;
             this.UITabCtrl.Location = new Point(0, 0);
             this.UITabCtrl.Name = "UITabCtrl";
@@ -352,6 +367,147 @@ namespace CS7GUIs
             this.UITrackDuration.TabIndex = 5;
             this.UITrackDuration.Scroll += this.UITrackDuration_Scroll;
             // 
+            // UITabCRUD
+            // 
+            this.UITabCRUD.Controls.Add(this.tableLayoutPanel2);
+            this.UITabCRUD.Location = new Point(4, 28);
+            this.UITabCRUD.Name = "UITabCRUD";
+            this.UITabCRUD.Padding = new Padding(3);
+            this.UITabCRUD.Size = new Size(474, 421);
+            this.UITabCRUD.TabIndex = 5;
+            this.UITabCRUD.Text = "CRUD";
+            this.UITabCRUD.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 4;
+            this.tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            this.tableLayoutPanel2.Controls.Add(this.label4, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.UIInputFilter, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label6, 2, 1);
+            this.tableLayoutPanel2.Controls.Add(this.label7, 2, 2);
+            this.tableLayoutPanel2.Controls.Add(this.UIUnputName, 3, 1);
+            this.tableLayoutPanel2.Controls.Add(this.UIInputSurName, 3, 2);
+            this.tableLayoutPanel2.Controls.Add(this.UIBtnCreate, 0, 5);
+            this.tableLayoutPanel2.Controls.Add(this.UIBtnUpdate, 1, 5);
+            this.tableLayoutPanel2.Controls.Add(this.UIBtnDelete, 2, 5);
+            this.tableLayoutPanel2.Controls.Add(this.UIListBox, 0, 1);
+            this.tableLayoutPanel2.Dock = DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 7;
+            this.tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+            this.tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+            this.tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            this.tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            this.tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            this.tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+            this.tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Size = new Size(468, 415);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new Point(3, 8);
+            this.label4.Margin = new Padding(3, 8, 3, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new Size(90, 19);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Filter prefix:";
+            // 
+            // UIInputFilter
+            // 
+            this.UIInputFilter.Location = new Point(120, 6);
+            this.UIInputFilter.Margin = new Padding(3, 6, 3, 3);
+            this.UIInputFilter.Name = "UIInputFilter";
+            this.UIInputFilter.Size = new Size(111, 27);
+            this.UIInputFilter.TabIndex = 1;
+            this.UIInputFilter.TextChanged += this.UIInputFilter_TextChanged;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new Point(237, 46);
+            this.label6.Margin = new Padding(3, 6, 3, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new Size(54, 19);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Name:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new Point(237, 86);
+            this.label7.Margin = new Padding(3, 6, 3, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new Size(75, 19);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "Surname:";
+            // 
+            // UIUnputName
+            // 
+            this.UIUnputName.Location = new Point(354, 43);
+            this.UIUnputName.Name = "UIUnputName";
+            this.UIUnputName.Size = new Size(111, 27);
+            this.UIUnputName.TabIndex = 5;
+            // 
+            // UIInputSurName
+            // 
+            this.UIInputSurName.Location = new Point(354, 83);
+            this.UIInputSurName.Name = "UIInputSurName";
+            this.UIInputSurName.Size = new Size(111, 27);
+            this.UIInputSurName.TabIndex = 6;
+            // 
+            // UIBtnCreate
+            // 
+            this.UIBtnCreate.Dock = DockStyle.Fill;
+            this.UIBtnCreate.Location = new Point(3, 356);
+            this.UIBtnCreate.Name = "UIBtnCreate";
+            this.UIBtnCreate.Size = new Size(111, 34);
+            this.UIBtnCreate.TabIndex = 7;
+            this.UIBtnCreate.Text = "Create";
+            this.UIBtnCreate.UseVisualStyleBackColor = true;
+            this.UIBtnCreate.Click += this.UIBtnCreate_Click;
+            // 
+            // UIBtnUpdate
+            // 
+            this.UIBtnUpdate.Dock = DockStyle.Fill;
+            this.UIBtnUpdate.Location = new Point(120, 356);
+            this.UIBtnUpdate.Name = "UIBtnUpdate";
+            this.UIBtnUpdate.Size = new Size(111, 34);
+            this.UIBtnUpdate.TabIndex = 8;
+            this.UIBtnUpdate.Text = "Update";
+            this.UIBtnUpdate.UseVisualStyleBackColor = true;
+            this.UIBtnUpdate.Click += this.UIBtnUpdate_Click;
+            // 
+            // UIBtnDelete
+            // 
+            this.UIBtnDelete.Dock = DockStyle.Fill;
+            this.UIBtnDelete.Location = new Point(237, 356);
+            this.UIBtnDelete.Name = "UIBtnDelete";
+            this.UIBtnDelete.Size = new Size(111, 34);
+            this.UIBtnDelete.TabIndex = 9;
+            this.UIBtnDelete.Text = "Delete";
+            this.UIBtnDelete.UseVisualStyleBackColor = true;
+            this.UIBtnDelete.Click += this.UIBtnDelete_Click;
+            // 
+            // UIListBox
+            // 
+            this.tableLayoutPanel2.SetColumnSpan(this.UIListBox, 2);
+            this.UIListBox.Dock = DockStyle.Fill;
+            this.UIListBox.FormattingEnabled = true;
+            this.UIListBox.ItemHeight = 19;
+            this.UIListBox.Location = new Point(3, 43);
+            this.UIListBox.Name = "UIListBox";
+            this.tableLayoutPanel2.SetRowSpan(this.UIListBox, 4);
+            this.UIListBox.Size = new Size(228, 307);
+            this.UIListBox.TabIndex = 10;
+            this.UIListBox.SelectedIndexChanged += this.UIListBox_SelectedIndexChanged;
+            // 
             // UIStatusBar
             // 
             this.UIStatusBar.ImageScalingSize = new Size(20, 20);
@@ -409,6 +565,9 @@ namespace CS7GUIs
             this.UIPanelTimer.ResumeLayout(false);
             this.UIPanelTimer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)this.UITrackDuration).EndInit();
+            this.UITabCRUD.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.UIStatusBar.ResumeLayout(false);
             this.UIStatusBar.PerformLayout();
             this.ResumeLayout(false);
@@ -445,5 +604,17 @@ namespace CS7GUIs
         private ProgressBar UIProgessElapsed;
         private TrackBar UITrackDuration;
         private Timer UITimeTicker;
+        private TabPage UITabCRUD;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Label label4;
+        private TextBox UIInputFilter;
+        private Label label6;
+        private Label label7;
+        private TextBox UIUnputName;
+        private TextBox UIInputSurName;
+        private Button UIBtnCreate;
+        private Button UIBtnUpdate;
+        private Button UIBtnDelete;
+        private ListBox UIListBox;
     }
 }
