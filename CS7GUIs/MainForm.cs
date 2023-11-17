@@ -190,8 +190,8 @@ namespace CS7GUIs
         #endregion
 
         #region Timer
-        const int DURATION_DEFAULT = 15000; // ms
-        const int DURATION_MAXIMUM = 30000; // ms
+        private const int DURATION_DEFAULT = 15000; // ms
+        private const int DURATION_MAXIMUM = 30000; // ms
 
         private DateTime timerStartTime;
         private void setupTimer()
@@ -221,7 +221,7 @@ namespace CS7GUIs
             if (this.UITrackDuration.Value - this.UIProgessElapsed.Value >= 0)
             {
                 DateTime now = DateTime.Now;
-                var span = now - this.timerStartTime;
+                TimeSpan span = now - this.timerStartTime;
                 if (span.TotalMilliseconds < this.UIProgessElapsed.Maximum)
                 {
                     this.UIProgessElapsed.Value = (int)span.TotalMilliseconds;
@@ -262,15 +262,13 @@ namespace CS7GUIs
         {
             get
             {
-                if (string.IsNullOrEmpty(this.UIInputFilter.Text))
-                {
-                    return this.allUsers;
-                }
-
-                return this.allUsers.FindAll((user) =>
+                return string.IsNullOrEmpty(this.UIInputFilter.Text)
+                    ? this.allUsers
+                    : this.allUsers.FindAll((user) =>
                 {
                     return user.SurName.StartsWith(this.UIInputFilter.Text);
-                }); ;
+                });
+                ;
             }
         }
 
@@ -305,7 +303,7 @@ namespace CS7GUIs
                 return;
             }
 
-            var user = (User)this.UIListBox.SelectedItems[0];
+            User? user = (User)this.UIListBox.SelectedItems[0];
             this.UIUnputName.Text = user?.Name;
             this.UIInputSurName.Text = user?.SurName;
 
@@ -319,7 +317,7 @@ namespace CS7GUIs
             {
                 return;
             }
-            var user = new User() { Name = this.UIUnputName.Text, SurName = this.UIInputSurName.Text };
+            User user = new() { Name = this.UIUnputName.Text, SurName = this.UIInputSurName.Text };
             this.allUsers.Add(user);
 
             log.Info($"create {user.FullName}");
@@ -334,7 +332,7 @@ namespace CS7GUIs
                 return;
             }
 
-            var user = (User)this.UIListBox.SelectedItems[0];
+            User user = (User)this.UIListBox.SelectedItems[0];
             user.Name = this.UIUnputName.Text;
             user.SurName = this.UIInputSurName.Text;
 
@@ -350,8 +348,8 @@ namespace CS7GUIs
                 return;
             }
 
-            var user = (User)this.UIListBox.SelectedItems[0];
-            this.allUsers.Remove(user);
+            User user = (User)this.UIListBox.SelectedItems[0];
+            _ = this.allUsers.Remove(user);
 
             log.Info($"delete {user.FullName}");
 
